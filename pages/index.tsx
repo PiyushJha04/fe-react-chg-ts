@@ -1,5 +1,13 @@
-import { Typography, Link, List, ListItem } from '@material-ui/core';
+import { Link, List, ListItem, ThemeProvider, Typography } from '@mui/material';
 import { NextPage } from 'next';
+
+// @styles
+import theme from 'src/styles/theme';
+import {
+  BoxStyled,
+  ContaierStyled,
+  CssBaseLineStyled
+} from './index.styled'
 
 const HomePage: NextPage = () => {
   const lenders = [
@@ -10,18 +18,27 @@ const HomePage: NextPage = () => {
 
   return (
     <>
-      <Typography variant="h5" component="h5">
-        fe-react-chg-ts
-      </Typography>
-      <List>
-        {lenders.map((lender) => (
-          <ListItem key={lender.name}>
-            <Link data-testid={lender.slug} href={`/${lender.slug}`}>
-              {lender.name}
-            </Link>
-          </ListItem>
-        ))}
-      </List>
+      <ThemeProvider theme={theme}>
+        <CssBaseLineStyled />
+        <ContaierStyled>
+            <BoxStyled>
+              <Typography variant="h5" component="h5" color="purple.50">
+                Lender Banks
+              </Typography>
+              <List>
+                {lenders.map((lender) => (
+                  <ListItem key={lender.name}>
+                    <Link data-testid={lender.slug} href={`/${lender.slug}`}>
+                    <Typography variant="h5">
+                      {lender.name}
+                    </Typography>
+                    </Link>
+                  </ListItem>
+                ))}
+              </List>
+            </BoxStyled>
+        </ContaierStyled>
+      </ThemeProvider>
     </>
   );
 };
